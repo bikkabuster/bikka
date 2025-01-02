@@ -61,6 +61,14 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
+        .hidden {
+            display: none;
+        }
+
+        .input-container {
+            margin: 10px 0;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -82,15 +90,44 @@
         <button onclick="openLink('https://yourlink.com/dormind')">Dormind</button>
         <button onclick="openLink('https://yourlink.com/cathea')">Cathea</button>
         <button onclick="openLink('https://yourlink.com/bums')">Bums</button>
-        <button onclick="openLink('https://yourlink.com/tapswap')">Tapswap</button>
+        <button id="tapswapButton">Tapswap</button>
         <button onclick="openLink('https://yourlink.com/bonkers')">Bonkers</button>
         <button onclick="openLink('https://www.y2mate.com/en858/download-youtube')">YOUTUBE</button>
     </div>
+
+    <div id="inputSection" class="hidden">
+        <label for="songInput">Send me the song name:</label>
+        <div class="input-container">
+            <input type="text" id="songInput" placeholder="Type song name here...">
+        </div>
+        <button id="goButton">GO</button>
+    </div>
+
     <script>
         function openLink(url) {
             window.open(url, '_blank');
         }
+
+        document.getElementById('tapswapButton').addEventListener('click', function () {
+            // Show the input section
+            document.getElementById('inputSection').classList.remove('hidden');
+        });
+
+        document.getElementById('goButton').addEventListener('click', function () {
+            // Get the typed song name
+            const songName = document.getElementById('songInput').value.trim();
+
+            if (songName) {
+                // Format the message to send
+                const message = `/find ${songName}`;
+
+                // Redirect to the Telegram bot with the message
+                const telegramLink = `https://t.me/The_Shazam_BOT?start=${encodeURIComponent(message)}`;
+                window.open(telegramLink, '_blank');
+            } else {
+                alert('Please type a song name.');
+            }
+        });
     </script>
 </body>
 </html>
-
