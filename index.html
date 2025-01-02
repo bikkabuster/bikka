@@ -65,8 +65,23 @@
             display: none;
         }
 
-        .input-container {
-            margin: 10px 0;
+        .screen {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            background: linear-gradient(135deg, #ff7eb3, #ff758c);
+            animation: fadeInScreen 1.5s ease-in-out;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .screen h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            animation: slideInUp 1s ease-out;
         }
 
         @keyframes fadeIn {
@@ -76,6 +91,16 @@
 
         @keyframes slideInDown {
             from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInScreen {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(100px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
     </style>
@@ -95,8 +120,9 @@
         <button onclick="openLink('https://www.y2mate.com/en858/download-youtube')">YOUTUBE</button>
     </div>
 
-    <div id="inputSection" class="hidden">
-        <label for="songInput">Send me the song name:</label>
+    <div id="tapswapScreen" class="screen">
+        <h2>Welcome to Tapswap</h2>
+        <p>Enter the song name to proceed:</p>
         <div class="input-container">
             <input type="text" id="songInput" placeholder="Type song name here...">
         </div>
@@ -109,8 +135,12 @@
         }
 
         document.getElementById('tapswapButton').addEventListener('click', function () {
-            // Show the input section
-            document.getElementById('inputSection').classList.remove('hidden');
+            // Hide the main content
+            document.querySelector('h1').style.display = 'none';
+            document.querySelector('.button-container').style.display = 'none';
+
+            // Show the Tapswap screen
+            document.getElementById('tapswapScreen').style.display = 'flex';
         });
 
         document.getElementById('goButton').addEventListener('click', function () {
